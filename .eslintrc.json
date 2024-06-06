@@ -2,7 +2,6 @@
   "rules": {
     "@next/next/no-img-element": "off",
     "unused-imports/no-unused-imports": "error",
-    "prettier/prettier": "error",
     "space-in-parens": "error",
     "no-empty": "error",
     "no-multiple-empty-lines": "error",
@@ -10,7 +9,6 @@
     "strict": ["error", "never"],
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double", { "avoidEscape": true }],
-    "semi": ["error", "always"],
     "prefer-const": "error",
     "space-before-function-paren": [
       "error",
@@ -21,6 +19,6 @@
       }
     ]
   },
-  "extends": ["next/core-web-vitals", "prettier"],
-  "plugins": ["prettier", "unused-imports"]
+  "extends": ["next/core-web-vitals"],
+  "plugins": ["unused-imports"]
 }

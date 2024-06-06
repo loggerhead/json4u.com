@@ -1,12 +1,9 @@
-import { useTranslations } from "next-intl";
-import Counter from "./counter";
+import { Link } from "@/navigation";
 
 export default function Index() {
-  const t = useTranslations();
   return (
     <div>
-      <h1>{t("title")}</h1>
-      <Counter></Counter>
+      <Link href="/editor">Open Editor</Link>
     </div>
   );
 }

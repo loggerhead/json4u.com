@@ -1,10 +1,15 @@
 import NextBundleAnalyzer from "@next/bundle-analyzer";
 import withSerwistInit from "@serwist/next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { fileURLToPath } from "node:url";
+import path from "path";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const withSerwist = withSerwistInit({
-  swSrc: "app/sw.ts",
+  swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
+  additionalPrecacheEntries: ["https://cdn.json4u.com/jq/1.7/jq.js", "https://cdn.json4u.com/jq/1.7/jq.wasm"],
 });
 
 const withBundleAnalyzer = NextBundleAnalyzer({
@@ -13,12 +18,16 @@ const withBundleAnalyzer = NextBundleAnalyzer({
 
 const withNextIntl = createNextIntlPlugin();
 
-/** @type {import('next').NextConfig} */
+/** @type {import("next").NextConfig} */
 const nextConfig = {
   webpack(config, { isServer }) {
     if (!isServer) {
       config.resolve.fallback = { fs: false };
       config.output.webassemblyModuleFilename = "static/wasm/[modulehash].wasm";
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "@": __dirname,
+      };
       // can't use experiments
       // config.experiments = { asyncWebAssembly: true };
     }
@@ -27,8 +36,6 @@ const nextConfig = {
   },
 };
 
-const i18nConfig = withNextIntl(nextConfig);
-const bundleAnalyzerConfig = withBundleAnalyzer(i18nConfig);
-
-const finalConfig = process.env.ANALYZE === "true" ? bundleAnalyzerConfig : i18nConfig;
+const config = withSerwist(withNextIntl(nextConfig));
+const finalConfig = process.env.ANALYZE === "true" ? withBundleAnalyzer(config) : config;
 export default finalConfig;
