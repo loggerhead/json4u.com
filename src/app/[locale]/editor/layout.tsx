@@ -1,3 +1,3 @@
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
+export default async function EditorLayout({ children }: { children: React.ReactNode }) {
+  return <main className={"w-screen h-screen"}>{children}</main>;
 }

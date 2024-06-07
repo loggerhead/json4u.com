@@ -3,10 +3,10 @@ import "@/app/globals.css";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
-const APP_NAME = "PWA App";
-const APP_DEFAULT_TITLE = "My Awesome PWA App";
-const APP_TITLE_TEMPLATE = "%s - PWA App";
-const APP_DESCRIPTION = "Best PWA app in the world!";
+const APP_NAME = "JSON For You";
+const APP_DEFAULT_TITLE = "JSON For You";
+const APP_TITLE_TEMPLATE = "%s";
+const APP_DESCRIPTION = "Best JSON app in the world!";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,

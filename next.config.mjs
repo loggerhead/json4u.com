@@ -20,6 +20,14 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  swcMinify: true,
+  experimental: {
+    optimizePackageImports: [
+      'react-use',
+      'lodash-es',
+      'lucide-react',
+    ]
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
       config.resolve.fallback = { fs: false };
