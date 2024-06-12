@@ -1,4 +1,5 @@
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { Container, ContainerContent, ContainerHeader } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
@@ -6,7 +7,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
 
-export default function LeftContainer() {
+const Editor = dynamic(() => import("@/components/editor"), {
+  ssr: false,
+});
+
+export default function LeftPanel() {
   const t = useTranslations();
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
@@ -62,7 +67,9 @@ export default function LeftContainer() {
         </div>
       </ContainerHeader>
       <Separator />
-      <ContainerContent></ContainerContent>
+      <ContainerContent>
+        <Editor />
+      </ContainerContent>
     </Container>
   );
 }

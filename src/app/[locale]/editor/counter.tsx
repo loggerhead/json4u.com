@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { init as jqInit, jq } from "@/lib/jq";
+import { jq } from "@/lib/jq";
 
 export default function Counter() {
   const hasWindow = typeof window !== "undefined";
@@ -11,7 +11,6 @@ export default function Counter() {
   // 初始化 web worker
   useEffect(() => {
     if (hasWindow) {
-      const _ = jqInit();
       worker.current = new Worker(new URL("@/lib/worker.ts", import.meta.url));
 
       worker.current.onmessage = event => {

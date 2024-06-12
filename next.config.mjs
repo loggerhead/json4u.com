@@ -1,5 +1,6 @@
 import NextBundleAnalyzer from "@next/bundle-analyzer";
 import withSerwistInit from "@serwist/next";
+import MonacoWebpackPlugin from "monaco-editor-webpack-plugin";
 import createNextIntlPlugin from "next-intl/plugin";
 import { fileURLToPath } from "node:url";
 import path from "path";
@@ -23,10 +24,10 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     optimizePackageImports: [
-      'react-use',
-      'lodash-es',
-      'lucide-react',
-    ]
+      "react-use",
+      "lodash-es",
+      "lucide-react",
+    ],
   },
   webpack(config, { isServer }) {
     if (!isServer) {
@@ -36,6 +37,23 @@ const nextConfig = {
         ...config.resolve.alias,
         "@": __dirname,
       };
+
+      config.plugins.push(
+        new MonacoWebpackPlugin({
+          languages: ["json"],
+          features: [
+            "find", // 查找
+            "folding", // 折叠
+            "bracketMatching", // 高亮匹配的括号
+            "contextmenu", // 右键菜单
+            "indentation", // 缩进
+            "unusualLineTerminators", // invalid 换行符提示
+            "wordHighlighter", // 高亮光标停留位置的词
+          ],
+          filename: "static/[name].worker.bundle.js",
+        }),
+      );
+
       // can't use experiments
       // config.experiments = { asyncWebAssembly: true };
     }

@@ -74,3 +74,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* fix monaco 不能根据父容器改变大小的 bug：https://stackoverflow.com/questions/47017753/monaco-editor-dynamically-resizable */
+.monaco-editor {
+  position: absolute !important;
+}

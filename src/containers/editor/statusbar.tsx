@@ -10,7 +10,7 @@ import {
 
 export default function StatusBar() {
   return (
-    <div className="w-full px-4 py-1">
+    <div className="w-full min-h-fit px-4 py-1">
       <Breadcrumb>
         <BreadcrumbList className={"text-xs"}>
           <BreadcrumbItem>
