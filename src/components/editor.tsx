@@ -1,17 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
-import { init } from "@/lib/editor";
+import "@/lib/editor";
 import { Editor as MonacoEditor } from "@monaco-editor/react";
 
 export default function Editor() {
-  useEffect(() => {
-    init();
-  }, []);
-
   return (
     <MonacoEditor
       language="json"
+      loading={null}
       options={{
         fontSize: 13, // 设置初始字体大小
         scrollBeyondLastLine: false, // 行数超过一屏时才展示滚动条

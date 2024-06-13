@@ -7,7 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Separator } from "@/components/ui/separator";
 import { useTranslations } from "next-intl";
 
-const Editor = dynamic(() => import("@/components/editor"), {
+const Editor = dynamic(() => import(/* webpackChunkName: "monaco-editor" */ "@/components/editor"), {
   ssr: false,
 });
 

@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useEffect, useRef } from "react";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Separator } from "@/components/ui/separator";
 import LeftPanel from "@/containers/editor/left-panel";
@@ -15,6 +16,23 @@ interface MainPanelProps {
 
 export default function MainPanel({ defaultLayout = [50, 50], defaultCollapsed = false }: MainPanelProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+
+  const hasWindow = typeof window !== "undefined";
+  const worker = useRef<Worker | null>(null);
+
+  // 初始化 web worker
+  useEffect(() => {
+    if (hasWindow) {
+      worker.current = new Worker(new URL("@/lib/worker.ts", import.meta.url));
+
+      worker.current.onmessage = event => {
+        console.log("received message in main thread:", event);
+      };
+
+      worker.current.postMessage("Hello worker from main thread!");
+      return () => worker.current!.terminate();
+    }
+  }, [hasWindow]);
 
   return (
     <div className="w-full h-full flex flex-col">

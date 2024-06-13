@@ -10,7 +10,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const withSerwist = withSerwistInit({
   swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
-  additionalPrecacheEntries: ["https://cdn.json4u.com/jq/1.7/jq.js", "https://cdn.json4u.com/jq/1.7/jq.wasm"],
+  maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
+  additionalPrecacheEntries: [
+    "jq/1.7/jq.js",
+    "jq/1.7/jq.wasm",
+  ]
 });
 
 const withBundleAnalyzer = NextBundleAnalyzer({
@@ -21,22 +25,22 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
+  reactStrictMode: true,
   swcMinify: true,
+  poweredByHeader: false,
   experimental: {
-    optimizePackageImports: [
-      "react-use",
-      "lodash-es",
-      "lucide-react",
-    ],
+    typedRoutes: true,
+    webVitalsAttribution: ["CLS", "LCP"],
+    optimizePackageImports: ["react-use", "lodash-es", "lucide-react", "monaco-editor"],
   },
-  webpack(config, { isServer }) {
+  webpack(config, { dev, isServer }) {
     if (!isServer) {
       config.resolve.fallback = { fs: false };
-      config.output.webassemblyModuleFilename = "static/wasm/[modulehash].wasm";
       config.resolve.alias = {
         ...config.resolve.alias,
         "@": __dirname,
       };
+      config.output.webassemblyModuleFilename = "static/wasm/[modulehash].wasm";
 
       config.plugins.push(
         new MonacoWebpackPlugin({
@@ -50,7 +54,7 @@ const nextConfig = {
             "unusualLineTerminators", // invalid 换行符提示
             "wordHighlighter", // 高亮光标停留位置的词
           ],
-          filename: "static/[name].worker.bundle.js",
+          filename: "static/[name].[contenthash:8].worker.js",
         }),
       );
 

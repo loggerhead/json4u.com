@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useEffect } from "react";
 import { Nav } from "@/components/nav";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { init as jqInit, jq } from "@/lib/jq";
 import { cn } from "@/lib/utils";
 import {
   ArrowDownNarrowWide,
@@ -25,6 +27,10 @@ import { useTranslations } from "next-intl";
 export default function SideNav() {
   const t = useTranslations();
   const [isCollapsed, setIsCollapsed] = React.useState(true);
+
+  useEffect(() => {
+    jqInit();
+  }, []);
 
   return (
     <div className={cn("flex flex-col", isCollapsed && "transition-all duration-300 ease-in-out")}>
@@ -55,7 +61,14 @@ export default function SideNav() {
         className={"mt-auto"}
         btns={[
           { title: t("Share"), icon: Share2, popoverContent: <SharePopoverContent /> },
-          { title: t("Settings"), icon: Settings },
+          {
+            title: t("Settings"),
+            icon: Settings,
+            onClick: async () => {
+              const r = await jq('{"foo": 1}', ".foo");
+              console.log(r);
+            },
+          },
         ]}
       />
       <Nav

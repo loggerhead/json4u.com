@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table2, Text, Waypoints } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const Editor = dynamic(() => import("@/components/editor"), {
+const Editor = dynamic(() => import(/* webpackChunkName: "monaco-editor" */ "@/components/editor"), {
   ssr: false,
 });
 
