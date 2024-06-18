@@ -2,8 +2,8 @@ import * as React from "react";
 import { cookies } from "next/headers";
 import { Separator } from "@/components/ui/separator";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import MainPanel from "@/containers/editor/main-panel";
-import SideNav from "@/containers/editor/sidenav";
+import MainPanel from "@/containers/editor/MainPanel";
+import SideNav from "@/containers/editor/SideNav";
 import { safeParseCookie } from "@/lib/utils";
 
 export default function Page() {

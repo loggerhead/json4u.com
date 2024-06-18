@@ -4,9 +4,9 @@ import * as React from "react";
 import { useEffect, useRef } from "react";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { Separator } from "@/components/ui/separator";
-import LeftPanel from "@/containers/editor/left-panel";
-import RightPanel from "@/containers/editor/right-panel";
-import StatusBar from "@/containers/editor/statusbar";
+import LeftPanel from "@/containers/editor/LeftPanel";
+import RightPanel from "@/containers/editor/RightPanel";
+import StatusBar from "@/containers/editor/StatusBar";
 import { cn } from "@/lib/utils";
 
 interface MainPanelProps {

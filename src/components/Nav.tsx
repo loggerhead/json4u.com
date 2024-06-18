@@ -1,10 +1,11 @@
 "use client";
 
-import { forwardRef } from "react";
-import { Button, ButtonProps } from "@/components/ui/button";
+import { ElementRef, forwardRef, HTMLAttributes } from "react";
+import { Button, type ButtonProps } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { type PopoverProps } from "@radix-ui/react-popover";
 import { LucideIcon } from "lucide-react";
 
 interface NavProps {
@@ -40,7 +41,7 @@ interface NavButtonProps {
 }
 
 function NavButton({ title, isCollapsed, active, onClick, ...props }: NavButtonProps) {
-  const Btn = forwardRef<HTMLButtonElement, ButtonProps>((p, ref) => (
+  const Btn = forwardRef<ElementRef<typeof Button>, ButtonProps>((p, ref) => (
     <Button ref={ref} className={cn("justify-start", active && "bg-primary text-primary-foreground shadow")} {...p}>
       <props.icon className={cn("h-4 w-4", !isCollapsed && "mr-2")} />
       {p.children}
@@ -48,32 +49,35 @@ function NavButton({ title, isCollapsed, active, onClick, ...props }: NavButtonP
   ));
   Btn.displayName = "Btn";
 
-  const WithPopover = ({ children }: React.HTMLAttributes<HTMLDivElement>) =>
-    props.popoverContent ? (
-      <Popover>
-        <PopoverTrigger asChild>
-          <Btn>{children}</Btn>
-        </PopoverTrigger>
-        <PopoverContent side="right" align="end" className={"w-fit"}>
-          {props.popoverContent}
-        </PopoverContent>
-      </Popover>
-    ) : (
-      <Btn onClick={onClick}>{children}</Btn>
-    );
+  const PopoverBtn = forwardRef<ElementRef<typeof Popover>, PopoverProps>(({ children }, ref) => (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Btn>{children}</Btn>
+      </PopoverTrigger>
+      <PopoverContent side="right" align="end" className={"w-fit"}>
+        {props.popoverContent}
+      </PopoverContent>
+    </Popover>
+  ));
+  PopoverBtn.displayName = "PopoverBtn";
+
+  const BtnMayPopover = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ children }, ref) =>
+    props.popoverContent ? <PopoverBtn>{children}</PopoverBtn> : <Btn onClick={onClick}>{children}</Btn>,
+  );
+  BtnMayPopover.displayName = "BtnMayPopover";
 
   return isCollapsed ? (
     <Tooltip delayDuration={0}>
       <TooltipTrigger asChild>
-        <WithPopover>
+        <BtnMayPopover>
           <span className="sr-only">{title}</span>
-        </WithPopover>
+        </BtnMayPopover>
       </TooltipTrigger>
       <TooltipContent side="right" className="flex items-center gap-4">
         {title}
       </TooltipContent>
     </Tooltip>
   ) : (
-    <WithPopover>{title}</WithPopover>
+    <BtnMayPopover>{title}</BtnMayPopover>
   );
 }

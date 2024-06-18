@@ -1,15 +1,17 @@
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { Container, ContainerContent, ContainerHeader } from "@/components/container";
+import { Container, ContainerContent, ContainerHeader } from "@/components/Container";
+import Graph from "@/components/graph";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import "@xyflow/react/dist/style.css";
 import { Table2, Text, Waypoints } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-const Editor = dynamic(() => import(/* webpackChunkName: "monaco-editor" */ "@/components/editor"), {
+const Editor = dynamic(() => import(/* webpackChunkName: "monaco-editor" */ "@/components/Editor"), {
   ssr: false,
+  loading: () => <div>Loading...</div>,
 });
 
 export default function RightPanel() {
@@ -36,13 +38,14 @@ export default function RightPanel() {
           </TabsList>
         </ContainerHeader>
         <ContainerContent>
-          <TabsContent value="text" className="w-full h-full m-0">
+          <TabsContent value="text" className="w-full h-full m-0 data-[state=inactive]:hidden" forceMount>
             <Editor />
           </TabsContent>
-          <TabsContent value="graph" className="w-full h-full m-0">
-            <p>1</p>
+          {/* fix https://github.com/radix-ui/primitives/issues/1155#issuecomment-2041571341 */}
+          <TabsContent value="graph" className="w-full h-full m-0 data-[state=inactive]:hidden" forceMount>
+            <Graph />
           </TabsContent>
-          <TabsContent value="table" className="w-full h-full m-0">
+          <TabsContent value="table" className="w-full h-full m-0 data-[state=inactive]:hidden" forceMount>
             <p>1</p>
           </TabsContent>
         </ContainerContent>

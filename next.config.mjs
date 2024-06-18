@@ -11,10 +11,7 @@ const withSerwist = withSerwistInit({
   swSrc: "src/app/sw.ts",
   swDest: "public/sw.js",
   maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
-  additionalPrecacheEntries: [
-    "jq/1.7/jq.js",
-    "jq/1.7/jq.wasm",
-  ]
+  additionalPrecacheEntries: ["jq/1.7/jq.js", "jq/1.7/jq.wasm"],
 });
 
 const withBundleAnalyzer = NextBundleAnalyzer({
@@ -31,7 +28,7 @@ const nextConfig = {
   experimental: {
     typedRoutes: true,
     webVitalsAttribution: ["CLS", "LCP"],
-    optimizePackageImports: ["react-use", "lodash-es", "lucide-react", "monaco-editor"],
+    optimizePackageImports: ["react-use", "lodash-es", "lucide-react", "monaco-editor", "@xyflow/react", "dagre"],
   },
   webpack(config, { dev, isServer }) {
     if (!isServer) {
