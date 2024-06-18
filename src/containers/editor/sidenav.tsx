@@ -37,7 +37,7 @@ export default function SideNav() {
       <div className={cn("flex items-center justify-center pt-2")}>
         <Avatar className={"w-[30px] h-[30px]"}>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>J</AvatarFallback>
         </Avatar>
       </div>
       <Nav

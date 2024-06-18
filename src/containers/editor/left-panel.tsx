@@ -26,10 +26,13 @@ export default function LeftPanel() {
       label: "Astro",
     },
   ];
+  const headers = {
+    import: <div></div>,
+  };
 
   return (
     <Container>
-      <ContainerHeader>
+      <ContainerHeader mode={"import"} modeHeaders={headers}>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button variant="outline" role="combobox" aria-expanded={open} className="w-[200px] justify-between">
@@ -66,7 +69,6 @@ export default function LeftPanel() {
           <Button>{t("Unescape")}</Button>
         </div>
       </ContainerHeader>
-      <Separator />
       <ContainerContent>
         <Editor />
       </ContainerContent>
