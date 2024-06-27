@@ -35,7 +35,7 @@ export default function MainPanel({ defaultLayout = [50, 50], defaultCollapsed =
   }, [hasWindow]);
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col overflow-hidden">
       <ResizablePanelGroup
         className={"flex-grow"}
         direction="horizontal"

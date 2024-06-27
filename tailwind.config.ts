@@ -13,7 +13,18 @@ const config = {
       },
     },
     extend: {
+      spacing: {
+        // height of <Container/>
+        header: "42px",
+      },
+      backgroundColor: {
+        "hl-key": "rgb(224, 224, 224, 0.3)",
+      },
       colors: {
+        "hl-key": "#a31515",
+        "hl-value": "#098658",
+        "hl-string": "#0451a5",
+        "hl-empty": "#0000004d",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

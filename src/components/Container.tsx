@@ -30,7 +30,7 @@ export function ContainerHeader({ children, mode, modeHeaders, ...props }: Conta
   return (
     <>
       <Collapsible className={"absolute z-10 w-full"} defaultOpen={false} open={open} onOpenChange={setOpen}>
-        <div className={"flex items-center w-full min-h-fit h-[42px] px-4"} {...props}>
+        <div className={"flex items-center w-full min-h-fit h-header px-4"} {...props}>
           {children}
         </div>
         <CollapsibleContent className={"px-4"}>{showModeHeader ? modeHeader : null}</CollapsibleContent>
@@ -42,7 +42,7 @@ export function ContainerHeader({ children, mode, modeHeaders, ...props }: Conta
 
 export function ContainerContent({ children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={"w-full flex-grow"} {...props}>
+    <div className={"w-full max-h-full flex-grow"} {...props}>
       {children}
     </div>
   );
